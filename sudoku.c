@@ -232,8 +232,6 @@ void inserisciValore(elemento_t campo[][DIM], char schema_iniziale[]) {
             campo[riga-1][colonna-1].num = valore;
     }
         printf("\n");
-        stampaMappa(campo, DIM);
-        visualizzaMenu(campo, schema_iniziale);
 }
 
 
@@ -259,8 +257,6 @@ void cancellaValore(elemento_t campo[][DIM], char schema_iniziale[]){
             printf("Le coordinate selezionate non sono valide: la casella non può essere cancellata o è già vuota.\n"); 
     }
     printf("\n");
-    stampaMappa(campo, DIM);
-    visualizzaMenu(campo, schema_iniziale);
     
 }
 
@@ -307,6 +303,14 @@ int verificaVittoria (elemento_t campo[][DIM]){
                     for(k=j+1;k<larghezza+3;k++){
                         //controllo righe
                         if((campo[i][j].num == campo[i][k].num) && (campo[i][j].num != 0 || campo[i][k].num != 0)){
+                            return 0;
+                        }
+                        //controllo diagonale principale
+                        if(campo[i][j].num == campo[i+1][j+1].num || campo[i+1][j+1].num == campo[i+2][j+2].num || campo[i][j].num == campo[i+2][j+2].num){
+                            return 0;
+                        }
+                        //controllo diagonale secondaria
+                        if(campo[i+2][j].num == campo[i+1][j+1].num || campo[i+1][j+1].num == campo[i][j+2].num || campo[i+2][j].num == campo[i][j+2].num){
                             return 0;
                         }
 
