@@ -277,6 +277,7 @@ int cercaElemento(elemento_t campo[][DIM], int riga, int colonna){ //1 se c'è e
 
 int verificaVittoria (elemento_t campo[][DIM]){
     int i, j, k, larghezza, altezza;
+    int quadrato[DIM];
     
     for(i=0;i<DIM;i++){
         for(j=0;j<DIM-1;j++){
@@ -298,26 +299,15 @@ int verificaVittoria (elemento_t campo[][DIM]){
     altezza = 0;
     for(larghezza = 0; larghezza<=6; larghezza = larghezza+3){
         for(altezza = 0; altezza<=6; altezza = altezza+3){
-            for(i=altezza;i<altezza+3;i++){
-                for(j=larghezza;j<larghezza+2;j++){
-                    for(k=j+1;k<larghezza+3;k++){
-                        //controllo righe
-                        if((campo[i][j].num == campo[i][k].num) && (campo[i][j].num != 0 || campo[i][k].num != 0)){
-                            return 0;
-                        }
-                        //controllo diagonale principale
-                        if(campo[i][j].num == campo[i+1][j+1].num || campo[i+1][j+1].num == campo[i+2][j+2].num || campo[i][j].num == campo[i+2][j+2].num){
-                            return 0;
-                        }
-                        //controllo diagonale secondaria
-                        if(campo[i+2][j].num == campo[i+1][j+1].num || campo[i+1][j+1].num == campo[i][j+2].num || campo[i+2][j].num == campo[i][j+2].num){
-                            return 0;
-                        }
-
-                        //controllo colonne
-                        if((campo[j][i].num == campo[k][i].num) && (campo[j][i].num != 0 || campo[k][i].num != 0)){
-                            return 0;
-                        }
+            for(i=0;i<3;i++){
+                for(j=0;j<3;j++){
+                    quadrato[3*i+j] = campo[altezza+i][larghezza+j].num;
+                } 
+            }
+            for(i=0;i<DIM-1;i++){
+                for(j=i+1;j<DIM;j++){
+                    if(quadrato[i] != 0 && (quadrato[i] == quadrato[j])){
+                        return 0;
                     }
                 }
             }
